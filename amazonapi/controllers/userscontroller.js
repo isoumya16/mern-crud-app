@@ -72,23 +72,28 @@ exports.updateprofileimage = async (request, response) => {
 
 }
 
-exports.login = async (request,response)=>{
-    let email = request.body.email
-    let password = request.body.password
-    let loginEmail = {"email":email}
-   
-    await users.findOne(loginEmail).then((res)=>{
-        if(res){
-            if(res.password == password){
-                response.send(JSON.stringify({'message': 'user exists!'}))  
-            }else{
-                response.send(JSON.stringify({'message':"result not found"}))
-            }
-        }else{
-           response.send(JSON.stringify({'message':"result not found"}))
-        }
-    }).catch((error)=>{
-        response.send(JSON.stringify({'message':error}))
-    })
+exports.login = async (request, response) => {
+    let email = request.body.email;
+    let password = request.body.password;
+    let loginEmail = { "email": email };
 
-}
+    console.log("Login attempt:", { email, password });
+
+    await users.findOne(loginEmail)
+        .then((user) => {
+            console.log("User found:", user); 
+            if (user) {
+                if (user.password === password) {
+                    response.send(JSON.stringify({ 'message': 'user exists!', users_id: user._id, firstname: user.firstname, email: user.email }));
+                } else {
+                    response.send(JSON.stringify({ 'message': "Incorrect password" }));
+                }
+            } else {
+                response.send(JSON.stringify({ 'message': "User not found" }));
+            }
+        })
+        .catch((error) => {
+            console.error("Login error:", error);
+            response.send(JSON.stringify({ 'message': error.message }));
+        });
+};
