@@ -119,9 +119,9 @@ const Registration = () => {
         if (response.data.message === "Either password or email is wrong") {
           setformerror(response.data.message);
         } else {
-          localStorage.setItem('user_id',response.data.message[0].users_id);
-          localStorage.setItem('firstname',response.data.message[0].firstname);
-          localStorage.setItem('email',response.data.message[0].email);
+          localStorage.setItem('user_id',response.data.message.users_id);
+          localStorage.setItem('firstname',response.data.message.firstname);
+          localStorage.setItem('email',response.data.message.email);
           
           navigate('/userlist');
         }
