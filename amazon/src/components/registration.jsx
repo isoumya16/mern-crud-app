@@ -115,16 +115,21 @@ const Registration = () => {
 
       axios.post(`${API_BASE_URL}/users/login`, formData).then((response) => {
         // console.log(response);
-
-        if (response.data.message === "Either password or email is wrong") {
-          setformerror(response.data.message);
-        } else {
-          localStorage.setItem('user_id',response.data.message.users_id);
-          localStorage.setItem('firstname',response.data.message.firstname);
-          localStorage.setItem('email',response.data.message.email);
-          
-          navigate('/userlist');
-        }
+        axios.post(`${API_BASE_URL}/users/login`, formData)
+        .then((response) => {
+            if (response.data.message === "user exists!") {
+                localStorage.setItem('user_id', response.data.users_id); // Ensure you're storing the user ID
+                localStorage.setItem('firstname', response.data.firstname);
+                localStorage.setItem('email', response.data.email);
+                navigate('/userlist'); // This line should be here
+            } else {
+                setformerror(response.data.message || "Login failed.");
+            }
+        })
+        .catch(error => {
+            setformerror("An error occurred during login.");
+            console.error("Login error:", error);
+        });
 
       })
     }
