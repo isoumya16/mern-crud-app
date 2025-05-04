@@ -4,7 +4,14 @@ const path = require('path');
 const port = process.env.PORT || 8080;
 const cors = require('cors');
 
-app.use(cors());
+const corsOptions = {
+    origin: 'https://mern-crud-app-frontend-aa9e.onrender.com',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.get('/',(request,response)=>{
