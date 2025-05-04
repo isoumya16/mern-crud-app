@@ -3,7 +3,7 @@ import axios from 'axios';
 import '../css/registration.css';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
-const API_BASE_URL = 'https://your-backend-name.onrender.com';
+const API_BASE_URL = 'https://mern-crud-app-backend-riwj.onrender.com';
 
 const Registration = () => {
   const location = useLocation();

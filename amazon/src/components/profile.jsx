@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../css/profile.css";
 import axios from "axios";
 
-const API_BASE_URL = 'https://your-backend-name.onrender.com';
+const API_BASE_URL = 'https://mern-crud-app-backend-riwj.onrender.com';
 
 const Profile = () => {
   const [profiledata, setprofiledata] = useState('');
